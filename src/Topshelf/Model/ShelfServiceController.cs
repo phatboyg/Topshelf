@@ -34,7 +34,7 @@ namespace Topshelf.Model
 		readonly PublishChannel _publish;
 		readonly ShelfType _shelfType;
 		bool _disposed;
-		ShelfReference _reference;
+		AppDomainShelfReference _reference;
 
 		public ShelfServiceController(Inbox inbox, string name, IServiceChannel coordinatorChannel, ShelfType shelfType,
 		                              Type bootstrapperType, AssemblyName[] assemblyNames)
@@ -81,7 +81,7 @@ namespace Topshelf.Model
 			{
 				_log.DebugFormat("[Shelf:{0}] Create", _name);
 
-				_reference = new ShelfReference(_name, _shelfType, _publish);
+				_reference = new AppDomainShelfReference(_name, _shelfType, _publish);
 
 				if (_assemblyNames != null)
 					_assemblyNames.Each(_reference.LoadAssembly);
