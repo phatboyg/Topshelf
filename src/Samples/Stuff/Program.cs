@@ -25,7 +25,7 @@ namespace Stuff
         {
             XmlConfigurator.ConfigureAndWatch(new FileInfo(".\\log4net.config"));
 
-            var h = HostFactory.New(x =>
+            HostFactory.Run(x =>
                 {
                     x.AfterStoppingServices(n => Console.WriteLine("AfterStoppingServices action invoked, services are stopping"));
 
@@ -45,8 +45,6 @@ namespace Stuff
                     x.SetDisplayName("Stuff");
                     x.SetServiceName("stuff");
                 });
-
-            h.Run();
         }
     }
 }
