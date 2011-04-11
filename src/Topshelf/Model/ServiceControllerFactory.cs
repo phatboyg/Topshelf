@@ -60,6 +60,9 @@ namespace Topshelf.Model
 		{
 			x.AccessCurrentState(s => s.CurrentState);
 
+            // e = event
+            // s = state
+            // i = an instance of the service controller
 			x.Initially()
 				.When(e => e.Create)
 				.TransitionTo(s => s.Creating)

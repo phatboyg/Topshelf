@@ -231,10 +231,11 @@
     <Compile Include="Model\PublishChannel.cs" />
     <Compile Include="Messages\ServiceInfo.cs" />
     <Compile Include="Messages\ServiceStatus.cs" />
+    <Compile Include="Model\ShelfReference.cs" />
     <Compile Include="Shelving\ShelfConfiguration.cs" />
     <Compile Include="Model\AppDomainShelfReference.cs" />
     <Compile Include="Model\ShelfServiceController.cs" />
-    <Compile Include="Model\ShelfType.cs" />
+    <Compile Include="Model\IsolationLevel.cs" />
     <Compile Include="Internal\ReSharperStaticAnalysis.cs" />
     <Compile Include="Windows\WindowsUserAccessControl.cs" />
     <Compile Include="WindowsServiceCode\HostInstaller.cs">

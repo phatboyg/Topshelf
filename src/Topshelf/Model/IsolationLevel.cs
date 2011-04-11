@@ -12,9 +12,10 @@
 // specific language governing permissions and limitations under the License.
 namespace Topshelf.Model
 {
-	public enum ShelfType
+	public enum IsolationLevel
 	{
-		Internal,
-		Folder,
+		None,
+		AppDomain,
+        Process
 	}
 }

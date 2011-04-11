@@ -36,7 +36,7 @@ namespace Topshelf
 		void CreateDirectoryMonitor()
 		{
 			var message = new CreateShelfService("TopShelf.DirectoryMonitor",
-			                                     ShelfType.Internal,
+			                                     IsolationLevel.None,
 			                                     typeof(DirectoryMonitorBootstrapper));
 			_serviceChannel.Send(message);
 		}

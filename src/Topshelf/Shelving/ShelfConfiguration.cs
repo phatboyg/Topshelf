@@ -1,4 +1,4 @@
-// Copyright 2007-2010 The Apache Software Foundation.
+// Copyright 2007-2011 The Apache Software Foundation.
 //  
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 // this file except in compliance with the License. You may obtain a copy of the 
@@ -12,32 +12,39 @@
 // specific language governing permissions and limitations under the License.
 namespace Topshelf.Shelving
 {
-	using System;
-	using System.Configuration;
+    using System;
+    using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
 
 
-	public class ShelfConfiguration :
-		ConfigurationSection
-	{
-		[ConfigurationProperty("Bootstrapper", IsRequired = true)]
-		public string Bootstrapper
-		{
-			get { return (string)this["Bootstrapper"]; }
-		}
+    public class ShelfConfiguration :
+        ConfigurationSection
+    {
+        [ConfigurationProperty("Bootstrapper", IsRequired = true)]
+        public string Bootstrapper
+        {
+            get { return (string)this["Bootstrapper"]; }
+        }
 
-		public Type BootstrapperType
-		{
-			get
-			{
-				string value = Bootstrapper;
-				return Type.GetType(value);
-			}
-		}
+        [ConfigurationProperty("IsolationLevel", DefaultValue = "AppDomain", IsRequired = false)]
+        public string ShelfType
+        {
+            get { return (string)this["IsolationLevel"]; }
+        }
 
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-		public static ShelfConfiguration GetConfig()
-		{
-			return ConfigurationManager.GetSection("ShelfConfiguration") as ShelfConfiguration;
-		}
-	}
+        public Type BootstrapperType
+        {
+            get
+            {
+                string value = Bootstrapper;
+                return Type.GetType(value);
+            }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public static ShelfConfiguration GetConfig()
+        {
+            return ConfigurationManager.GetSection("ShelfConfiguration") as ShelfConfiguration;
+        }
+    }
 }

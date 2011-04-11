@@ -235,7 +235,7 @@ namespace Topshelf.Model
 
 			ActorFactory<IServiceController> factory = _controllerFactory.CreateFactory(inbox =>
 				{
-					IServiceController controller = new ShelfServiceController(inbox, message.ServiceName, this, message.ShelfType,
+					IServiceController controller = new ShelfServiceController(inbox, message.ServiceName, this, message.IsolationLevel,
 					                                                           message.BootstrapperType, message.AssemblyNames);
 					_serviceCache.Add(message.ServiceName, controller);
 
@@ -255,7 +255,7 @@ namespace Topshelf.Model
 			if (_actorCache.Has(message.ServiceName))
 				_actorCache[message.ServiceName].Send(new RestartService(message.ServiceName));
 			else
-				OnCreateShelfService(new CreateShelfService(message.ServiceName, ShelfType.Folder, null, new AssemblyName[] {}));
+				OnCreateShelfService(new CreateShelfService(message.ServiceName, IsolationLevel.AppDomain, null, new AssemblyName[] {}));
 		}
 
 		void OnServiceFolderRemoved(ServiceFolderRemoved message)

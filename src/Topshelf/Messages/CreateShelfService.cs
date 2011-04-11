@@ -19,15 +19,15 @@ namespace Topshelf.Messages
 
 	public class CreateShelfService
 	{
-		public CreateShelfService(string serviceName, ShelfType shelfType, Type bootstrapperType)
-			: this(serviceName, shelfType, bootstrapperType, new AssemblyName[] {})
+		public CreateShelfService(string serviceName, IsolationLevel isolationLevel, Type bootstrapperType)
+			: this(serviceName, isolationLevel, bootstrapperType, new AssemblyName[] {})
 		{
 		}
 
-		public CreateShelfService(string serviceName, ShelfType shelfType, Type bootstrapperType, AssemblyName[] assemblyNames)
+		public CreateShelfService(string serviceName, IsolationLevel isolationLevel, Type bootstrapperType, AssemblyName[] assemblyNames)
 		{
 			ServiceName = serviceName;
-			ShelfType = shelfType;
+			IsolationLevel = isolationLevel;
 			BootstrapperType = bootstrapperType;
 			AssemblyNames = assemblyNames;
 		}
@@ -38,7 +38,7 @@ namespace Topshelf.Messages
 
 		public string ServiceName { get; private set; }
 
-		public ShelfType ShelfType { get; private set; }
+		public IsolationLevel IsolationLevel { get; private set; }
 		public Type BootstrapperType { get; private set; }
 		public AssemblyName[] AssemblyNames { get; private set; }
 	}
