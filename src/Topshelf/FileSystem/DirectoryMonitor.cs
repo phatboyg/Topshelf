@@ -121,7 +121,7 @@ namespace Topshelf.FileSystem
 			var serviceFolderExists = Directory.Exists(Path.Combine(_baseDirectory, directory));
 
 			if (serviceFolderExists)
-				_serviceChannel.Send(new ServiceFolderChanged(directory));
+				_serviceChannel.Send(new ServiceFolderChanged(directory, _baseDirectory));
 			else
 				_serviceChannel.Send(new ServiceFolderRemoved(directory));
 		}

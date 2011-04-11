@@ -1,4 +1,4 @@
-// Copyright 2007-2011 The Apache Software Foundation.
+﻿// Copyright 2007-2011 The Apache Software Foundation.
 //  
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
 // this file except in compliance with the License. You may obtain a copy of the 
@@ -10,25 +10,14 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
-namespace Topshelf.Specs.XmlPoke
+namespace Topshelf.Shelving
 {
     using Model;
-    using NUnit.Framework;
-    using Shelving;
 
 
-    [TestFixture]
-    public class XmlPoking_Specs
+    public class ConfigurationOptions
     {
-        [Test]
-        public void ShouldBeAbleToPokeAtTheValues()
-        {
-            var poker = new ShelfConfigurationReader();
-            var opts = poker.LoadShelfOptions(".", "xmlpoke");
-
-
-            opts.Bootstrapper.ShouldEqual("Topshelf.Specs.TestAppDomainBootstrapper, TopShelf.Specs");
-            opts.IsolationLevel.ShouldEqual(IsolationLevel.AppDomain);
-        }
+        public string Bootstrapper { get; set; }
+        public IsolationLevel IsolationLevel { get; set; }
     }
 }

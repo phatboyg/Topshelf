@@ -99,6 +99,7 @@
     </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionVersion.cs">
@@ -232,11 +233,13 @@
     <Compile Include="Messages\ServiceInfo.cs" />
     <Compile Include="Messages\ServiceStatus.cs" />
     <Compile Include="Model\ShelfReference.cs" />
+    <Compile Include="Shelving\ConfigurationOptions.cs" />
     <Compile Include="Shelving\ShelfConfiguration.cs" />
     <Compile Include="Model\AppDomainShelfReference.cs" />
     <Compile Include="Model\ShelfServiceController.cs" />
     <Compile Include="Model\IsolationLevel.cs" />
     <Compile Include="Internal\ReSharperStaticAnalysis.cs" />
+    <Compile Include="Shelving\ShelfConfigurationReader.cs" />
     <Compile Include="Windows\WindowsUserAccessControl.cs" />
     <Compile Include="WindowsServiceCode\HostInstaller.cs">
       <SubType>Component</SubType>

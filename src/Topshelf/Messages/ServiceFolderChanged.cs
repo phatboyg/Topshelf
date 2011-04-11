@@ -15,14 +15,17 @@ namespace Topshelf.Messages
 	public class ServiceFolderChanged :
 		ServiceEvent
 	{
-		public ServiceFolderChanged(string name)
+		public ServiceFolderChanged(string name, string baseDirectory)
 			: base(name)
 		{
 			EventType = ServiceEventType.FolderChanged;
+		    BaseDirectory = baseDirectory;
 		}
 
 		protected ServiceFolderChanged()
 		{
 		}
+
+        public string BaseDirectory { get; private set; }
 	}
 }

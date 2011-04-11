@@ -23,6 +23,7 @@ namespace Topshelf.Model
 	using Magnum.Collections;
 	using Magnum.Extensions;
 	using Messages;
+	using Shelving;
 	using Stact;
 	using Stact.Workflow;
 
@@ -43,6 +44,7 @@ namespace Topshelf.Model
 		readonly AutoResetEvent _updated = new AutoResetEvent(true);
 		UntypedChannel _channel;
 		ChannelConnection _channelConnection;
+        readonly ShelfConfigurationReader _configReader = new ShelfConfigurationReader();
 
 		volatile bool _disposed;
 		volatile bool _stopping;
@@ -255,7 +257,10 @@ namespace Topshelf.Model
 			if (_actorCache.Has(message.ServiceName))
 				_actorCache[message.ServiceName].Send(new RestartService(message.ServiceName));
 			else
-				OnCreateShelfService(new CreateShelfService(message.ServiceName, IsolationLevel.AppDomain, null, new AssemblyName[] {}));
+			{
+			    var opts = _configReader.LoadShelfOptions(message.BaseDirectory, message.ServiceName);
+				OnCreateShelfService(new CreateShelfService(message.ServiceName, opts.IsolationLevel, null, new AssemblyName[] {}));
+			}
 		}
 
 		void OnServiceFolderRemoved(ServiceFolderRemoved message)
