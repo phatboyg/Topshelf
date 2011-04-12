@@ -224,6 +224,7 @@
     <Compile Include="Model\IServiceWorkflow.cs" />
     <Compile Include="Model\OutboundChannel.cs" />
     <Compile Include="Model\IServiceChannel.cs" />
+    <Compile Include="Model\ProcessShelfReference.cs" />
     <Compile Include="Model\ServiceChannel.cs" />
     <Compile Include="Model\ServiceCoordinator.cs" />
     <Compile Include="Model\IServiceCoordinator.cs" />

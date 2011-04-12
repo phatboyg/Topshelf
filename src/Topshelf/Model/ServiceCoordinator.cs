@@ -238,7 +238,7 @@ namespace Topshelf.Model
 			ActorFactory<IServiceController> factory = _controllerFactory.CreateFactory(inbox =>
 				{
 					IServiceController controller = new ShelfServiceController(inbox, message.ServiceName, this, message.IsolationLevel,
-					                                                           message.BootstrapperType, message.AssemblyNames);
+					                                                           message.BootstrapperType, message.AssemblyNames, message.ServiceDirectory);
 					_serviceCache.Add(message.ServiceName, controller);
 
 					return controller;
@@ -259,7 +259,8 @@ namespace Topshelf.Model
 			else
 			{
 			    var opts = _configReader.LoadShelfOptions(message.BaseDirectory, message.ServiceName);
-				OnCreateShelfService(new CreateShelfService(message.ServiceName, opts.IsolationLevel, null, new AssemblyName[] {}));
+                
+				OnCreateShelfService(new CreateShelfService(message.ServiceName, opts.IsolationLevel, null, opts.ServiceDirectory, new  AssemblyName[] {}));
 			}
 		}
 

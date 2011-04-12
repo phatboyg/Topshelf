@@ -19,5 +19,6 @@ namespace Topshelf.Shelving
     {
         public string Bootstrapper { get; set; }
         public IsolationLevel IsolationLevel { get; set; }
+        public string ServiceDirectory { get; set; }
     }
 }

@@ -174,6 +174,7 @@ namespace Topshelf.Model
 
 		public void Unload()
 		{
+            //TODO: should call dispose?
 			if (_channel != null)
 			{
 				_channel.Dispose();

@@ -35,9 +35,10 @@ namespace Topshelf.Model
 		readonly IsolationLevel _isolationLevel;
 		bool _disposed;
 		ShelfReference _reference;
+	    readonly string _serviceDirectory;
 
 		public ShelfServiceController(Inbox inbox, string name, IServiceChannel coordinatorChannel, IsolationLevel isolationLevel,
-		                              Type bootstrapperType, AssemblyName[] assemblyNames)
+		                              Type bootstrapperType, AssemblyName[] assemblyNames, string serviceDirectory)
 		{
 			_inbox = inbox;
 			_name = name;
@@ -45,6 +46,7 @@ namespace Topshelf.Model
 			_isolationLevel = isolationLevel;
 			_bootstrapperType = bootstrapperType;
 			_assemblyNames = assemblyNames;
+		    _serviceDirectory = serviceDirectory;
 
 			_inbox.Loop(loop =>
 				{
@@ -81,7 +83,10 @@ namespace Topshelf.Model
 			{
 				_log.DebugFormat("[Shelf:{0}] Create", _name);
 
-				_reference = new AppDomainShelfReference(_name, _isolationLevel, _publish);
+                if (_isolationLevel == IsolationLevel.AppDomain)
+                    _reference = new AppDomainShelfReference(_name, _isolationLevel, _publish);
+                else
+                    _reference = new ProcessShelfReference(_name, _serviceDirectory, _isolationLevel, _publish);
 
 				if (_assemblyNames != null)
 					_assemblyNames.Each(_reference.LoadAssembly);
@@ -182,7 +187,7 @@ namespace Topshelf.Model
 		void ShelfCreated(ShelfCreated message)
 		{
 			_log.DebugFormat("[Shelf:{0}] Shelf created at {1} ({2})", _name, message.Address, message.PipeName);
-
+            
 			_reference.CreateShelfChannel(message.Address, message.PipeName);
 		}
 

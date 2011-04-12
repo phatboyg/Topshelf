@@ -66,7 +66,7 @@ namespace Topshelf.Specs
 			using (var coordinator = new Model.ServiceCoordinator())
 			{
 				coordinator.Start();
-				coordinator.Send(new CreateShelfService("bob", IsolationLevel.AppDomain, typeof(TestAppDomainBootsrapper)));
+				coordinator.Send(new CreateShelfService("bob", IsolationLevel.AppDomain, typeof(TestAppDomainBootsrapper), "."));
 
 				TestAppDomainBootsrapper.Started.WaitOne(20.Seconds()).ShouldBeTrue();
 			}

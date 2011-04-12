@@ -22,8 +22,11 @@ namespace Topshelf.Shelving
     {
         public ConfigurationOptions LoadShelfOptions(string basePath, string serviceName)
         {
-            var fileName = System.IO.Path.Combine(basePath, "{0}\\{0}.config".FormatWith(serviceName));
-            var xml = XElement.Load(fileName);
+            var fileName = "{0}.config".FormatWith(serviceName);
+            var serviceDirectory = System.IO.Path.Combine(basePath, serviceName);
+            var pathToConfigFile = System.IO.Path.Combine(serviceDirectory, fileName);
+
+            var xml = XElement.Load(pathToConfigFile);
             var sc = xml.Element("ShelfConfiguration");
             var bootstrapper = sc.Attribute("Bootstrapper").Value;
             var isolationLevel = (IsolationLevel)Enum.Parse(typeof(IsolationLevel), sc.Attribute("IsolationLevel").Value, true);
@@ -31,7 +34,8 @@ namespace Topshelf.Shelving
             return new ConfigurationOptions
                 {
                     Bootstrapper = bootstrapper,
-                    IsolationLevel = isolationLevel
+                    IsolationLevel = isolationLevel,
+                    ServiceDirectory  = serviceDirectory
                 };
         }
     }
