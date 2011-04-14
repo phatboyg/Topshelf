@@ -37,7 +37,7 @@ namespace Topshelf.Model
         HostChannel _hostChannel;
         Process _process;
         int _pid;
-
+        readonly string _commandLineFormat = "shelf -uri:{0} -pipe:{1} -bootstrapper:{2}";
         public ProcessShelfReference(string serviceName, string serviceDirectory, IsolationLevel isolationLevel, UntypedChannel controllerChannel)
         {
             _serviceName = serviceName;
@@ -47,9 +47,10 @@ namespace Topshelf.Model
 
             //need to path the host.exe correctly.
             var pathToExe = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "topshelf.host.exe");
-            _processSettings = new ProcessStartInfo(pathToExe);
-            _processSettings.Arguments = "shelf";
-            _processSettings.WorkingDirectory = _serviceDirectory;
+            _processSettings = new ProcessStartInfo(pathToExe)
+                {
+                    WorkingDirectory = _serviceDirectory
+                };
         }
 
         public void Dispose()
@@ -79,12 +80,12 @@ namespace Topshelf.Model
         {
             CreateShelfInstance(null);
         }
-        public void Create([NotNull] Type bootstrapperType)
+        public void Create([NotNull] string bootstrapperType)
         {
             CreateShelfInstance(bootstrapperType);
         }
 
-        void CreateShelfInstance(Type bootstrapperType)
+        void CreateShelfInstance(string bootstrapperType)
         {
             _logger.DebugFormat("[{0}] Creating Host Channel", _serviceName);
 
@@ -96,6 +97,7 @@ namespace Topshelf.Model
 
             Type shelfType = typeof(Shelf);
 
+            _processSettings.Arguments = _commandLineFormat.FormatWith(_hostChannel.Address, _hostChannel.PipeName, bootstrapperType);
 
             _process = Process.Start(_processSettings);
             _pid = _process.Id;

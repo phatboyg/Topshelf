@@ -14,12 +14,12 @@ namespace Topshelf.Exceptions
 		{
 		}
 
-		public BuildServiceException([NotNull] string name, [NotNull] Type serviceType)
+		public BuildServiceException([NotNull] string name, [NotNull] string serviceType)
 			: base(string.Format("Couldn't build service '{0}' named '{1}'.", serviceType, name))
 		{
 		}
 
-		public BuildServiceException([NotNull] string name, [NotNull] Type serviceType, Exception innerException)
+		public BuildServiceException([NotNull] string name, [NotNull] string serviceType, Exception innerException)
 			: base(string.Format("Couldn't build service '{0}' named '{1}'.", serviceType, name), innerException)
 		{
 		}

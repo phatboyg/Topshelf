@@ -78,19 +78,23 @@ namespace Topshelf.Model
 			CreateShelfInstance(null);
 		}
 
-		public void Create([NotNull] Type bootstrapperType)
+		public void Create([NotNull] string bootstrapperType)
 		{
 			if (bootstrapperType == null)
 				throw new ArgumentNullException("bootstrapperType");
 
-			_log.DebugFormat("[{0}].BootstrapperType = {1}", _serviceName, bootstrapperType.ToShortTypeName());
-			_log.DebugFormat("[{0}].BootstrapperAssembly = {1}", _serviceName, bootstrapperType.Assembly.GetName().Name);
-			_log.DebugFormat("[{0}].BootstrapperVersion = {1}", _serviceName, bootstrapperType.Assembly.GetName().Version);
+		    var parts = bootstrapperType.Split(',');
+		    var type = parts[0];
+		    var ass = parts[1];
+
+			_log.DebugFormat("[{0}].BootstrapperType = {1}", _serviceName, type);
+			_log.DebugFormat("[{0}].BootstrapperAssembly = {1}", _serviceName, ass);
+			//_log.DebugFormat("[{0}].BootstrapperVersion = {1}", _serviceName, bootstrapperType.Assembly.GetName().Version);
 
 			CreateShelfInstance(bootstrapperType);
 		}
 
-		void CreateShelfInstance(Type bootstrapperType)
+		void CreateShelfInstance(string bootstrapperType)
 		{
 			_log.DebugFormat("[{0}] Creating Host Channel", _serviceName);
 

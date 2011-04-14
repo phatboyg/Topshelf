@@ -91,7 +91,7 @@ namespace Topshelf.Model
 			}
 			catch (Exception ex)
 			{
-				Publish(new ServiceFault(_name, new BuildServiceException(_name, typeof(TService), ex)));
+				Publish(new ServiceFault(_name, new BuildServiceException(_name, typeof(TService).FullName, ex)));
 			}
 		}
 

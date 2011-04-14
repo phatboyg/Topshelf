@@ -37,7 +37,7 @@ namespace Topshelf
 		{
 			var message = new CreateShelfService("TopShelf.DirectoryMonitor",
 			                                     IsolationLevel.None,
-			                                     typeof(DirectoryMonitorBootstrapper),
+			                                     typeof(DirectoryMonitorBootstrapper).FullName,
                                                  "SHOULD BLOW UP"); //TODO: This needs testing
 			_serviceChannel.Send(message);
 		}

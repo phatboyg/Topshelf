@@ -230,10 +230,13 @@ namespace Topshelf.Model
 
 		void OnCreateShelfService(CreateShelfService message)
 		{
+		    var type = message.BootstrapperType.Split(',')[0];
+		    var shortName = type.Split('.').Last();
+
 			_log.InfoFormat("[Topshelf] Create Shelf Service: {0}{1}", message.ServiceName,
 			                message.BootstrapperType == null
 			                	? ""
-			                	: " ({0})".FormatWith(message.BootstrapperType.ToShortTypeName()));
+			                	: " ({0})".FormatWith(shortName));
 
 			ActorFactory<IServiceController> factory = _controllerFactory.CreateFactory(inbox =>
 				{

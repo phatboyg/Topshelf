@@ -28,7 +28,7 @@ namespace Topshelf.Model
 		static readonly ILog _log = LogManager.GetLogger("Topshelf.Model.ShelfServiceController");
 
 		readonly AssemblyName[] _assemblyNames;
-		readonly Type _bootstrapperType;
+		readonly string _bootstrapperType;
 		readonly Inbox _inbox;
 		readonly string _name;
 		readonly PublishChannel _publish;
@@ -38,7 +38,7 @@ namespace Topshelf.Model
 	    readonly string _serviceDirectory;
 
 		public ShelfServiceController(Inbox inbox, string name, IServiceChannel coordinatorChannel, IsolationLevel isolationLevel,
-		                              Type bootstrapperType, AssemblyName[] assemblyNames, string serviceDirectory)
+		                              string bootstrapperType, AssemblyName[] assemblyNames, string serviceDirectory)
 		{
 			_inbox = inbox;
 			_name = name;

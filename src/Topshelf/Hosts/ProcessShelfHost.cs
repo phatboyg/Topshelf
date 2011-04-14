@@ -10,22 +10,33 @@
 // under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the 
 // specific language governing permissions and limitations under the License.
-namespace Topshelf.Model
+namespace Topshelf.Hosts
 {
     using System;
-    using System.Reflection;
-    using Internal;
+    using Model;
 
 
-    public interface ShelfReference :
-        IDisposable
+    public class ProcessShelfHost : 
+        Host
     {
-        void LoadAssembly(AssemblyName assemblyName);
-        void Create([NotNull] string bootstrapperType);
-        void Create();
-        void Send<T>(T message);
-        void Unload();
-        void CreateShelfChannel(Uri address, string pipeName);
-    }
+        readonly Uri _uri;
+        readonly string _pipe;
+        readonly string _bootstrapper;
 
+        public ProcessShelfHost(Uri uri, string pipe, string bootstrapper)
+        {
+            _uri = uri;
+            _pipe = pipe;
+            _bootstrapper = bootstrapper;
+        }
+
+        public void Run()
+        {
+            var type = Type.GetType(_bootstrapper);
+            var shelf = new Shelf(type, _uri, _pipe);
+            
+            //when and how is this going to get called?
+            //shelf.Dispose();
+        }
+    }
 }

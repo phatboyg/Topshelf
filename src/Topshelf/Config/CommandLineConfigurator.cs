@@ -61,7 +61,12 @@ namespace Topshelf
 			      	.Or(from autostart in x.Switch("help")
 			      	    select (Option)new HelpOption())
 			      	.Or(from instance in x.Definition("instance")
-			      	    select (Option)new InstanceOption(instance.Value)));
+			      	    select (Option)new InstanceOption(instance.Value))
+                    .Or(from arg in x.Argument("shelf")
+                        from uri in x.Definition("uri")
+                        from pipe in x.Definition("pipe")
+                        from bootstrapper in x.Definition("bootstrapper")
+                        select (Option)new ShelfOption(uri.Value, pipe.Value, bootstrapper.Value)));
 		}
 	}
 }
