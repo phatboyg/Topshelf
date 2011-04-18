@@ -33,10 +33,18 @@ namespace Topshelf.Hosts
         public void Run()
         {
             var type = Type.GetType(_bootstrapper);
-            var shelf = new Shelf(type, _uri, _pipe);
-            
-            //when and how is this going to get called?
-            //shelf.Dispose();
+        	using (var shelf = new Shelf(type, _uri, _pipe))
+        	{
+				// TODO this probably needs to use an AppDomainShelfReference instead of creating
+				// the shelf directly so that it will run the same as if it were in the host
+				// but don't think we need a full coordinator as that would be pretty heavy and is 
+				// already in the shelf.cs
+				// likely use some type of event notification when the domain unloads to exit the
+				// process, otherwise, waitonsingleevent until the child app domain exits then
+				// exit the process
+
+
+        	}
         }
     }
 }

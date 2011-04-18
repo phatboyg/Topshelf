@@ -113,7 +113,7 @@ namespace Topshelf.Model
 #else
 			_objectHandle = _domain.CreateInstance(shelfType.Assembly.GetName().FullName, shelfType.FullName, true, 0, null,
 			                                       new object[] {bootstrapperType, _hostChannel.Address, _hostChannel.PipeName},
-			                                       null, null, null);
+			                                       null, null);
 #endif
 
 		}

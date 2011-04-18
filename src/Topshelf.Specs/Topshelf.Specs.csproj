@@ -94,7 +94,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestObject\TestService2.cs" />
     <Compile Include="TypeCoercionPlay.cs" />
-    <Compile Include="XmlPoke\XmlPoking_Specs.cs" />
+    <Compile Include="ShelfConfiguration\ShelfConfigurationReader_Specs.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -122,9 +122,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
-    <None Include="XmlPoke\xmlpoke.config">
+    <None Include="ShelfConfiguration\broken.config">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ShelfConfiguration\xmlpoke.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

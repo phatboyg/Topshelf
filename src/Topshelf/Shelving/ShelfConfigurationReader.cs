@@ -12,31 +12,51 @@
 // specific language governing permissions and limitations under the License.
 namespace Topshelf.Shelving
 {
-    using System;
-    using System.Xml.Linq;
-    using Magnum.Extensions;
-    using Model;
+	using System;
+	using System.IO;
+	using System.Linq;
+	using System.Xml.Linq;
+	using Exceptions;
+	using Magnum.Extensions;
+	using Model;
 
 
-    public class ShelfConfigurationReader
-    {
-        public ConfigurationOptions LoadShelfOptions(string basePath, string serviceName)
-        {
-            var fileName = "{0}.config".FormatWith(serviceName);
-            var serviceDirectory = System.IO.Path.Combine(basePath, serviceName);
-            var pathToConfigFile = System.IO.Path.Combine(serviceDirectory, fileName);
+	public class ShelfConfigurationReader
+	{
+		public ConfigurationOptions LoadShelfOptions(string basePath, string serviceName)
+		{
+			try
+			{
+				string configurationFileName = "{0}.config".FormatWith(serviceName);
 
-            var xml = XElement.Load(pathToConfigFile);
-            var sc = xml.Element("ShelfConfiguration");
-            var bootstrapper = sc.Attribute("Bootstrapper").Value;
-            var isolationLevel = (IsolationLevel)Enum.Parse(typeof(IsolationLevel), sc.Attribute("IsolationLevel").Value, true);
+				string serviceDirectory = Path.Combine(basePath, serviceName);
+				string pathToConfigFile = Path.Combine(serviceDirectory, configurationFileName);
 
-            return new ConfigurationOptions
-                {
-                    Bootstrapper = bootstrapper,
-                    IsolationLevel = isolationLevel,
-                    ServiceDirectory  = serviceDirectory
-                };
-        }
-    }
+				XElement xml = XElement.Load(pathToConfigFile);
+
+				XElement shelfConfiguration = xml.Descendants("ShelfConfiguration")
+					.Single();
+
+				string bootstrapper = shelfConfiguration.Attributes("Bootstrapper")
+					.Select(x => x.Value)
+					.Single();
+
+				IsolationLevel isolationLevel = shelfConfiguration.Attributes("IsolationLevel")
+					.Select(x => (IsolationLevel)Enum.Parse(typeof(IsolationLevel), x.Value, true))
+					.DefaultIfEmpty(IsolationLevel.AppDomain)
+					.Single();
+
+				return new ConfigurationOptions
+					{
+						Bootstrapper = bootstrapper,
+						IsolationLevel = isolationLevel,
+						ServiceDirectory = serviceDirectory
+					};
+			}
+			catch (Exception ex)
+			{
+				throw new ConfigurationException("The shelf configuration could not be read for service: " + serviceName, ex);
+			}
+		}
+	}
 }
