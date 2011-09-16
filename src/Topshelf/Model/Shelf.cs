@@ -269,7 +269,7 @@ namespace Topshelf.Model
 
 		static void BootstrapLogger()
 		{
-			string assemblyPath = Path.GetDirectoryName(typeof(Shelf).Assembly.Location);
+			string assemblyPath = AppDomain.CurrentDomain.BaseDirectory;
 
 			string configurationFilePath = Path.Combine(assemblyPath, "log4net.config");
 
