@@ -11,8 +11,6 @@
     <projectUrl>https://github.com/Topshelf/Topshelf</projectUrl>
     <dependencies>
 	<dependency id="Common.Logging" version="2.0.0" />
-	<dependency id="Common.Logging.Log4Net" version="2.0.1" />
-	<dependency id="log4net" version="1.2.10" />
     </dependencies>
   </metadata>
   <files>
