@@ -14,8 +14,8 @@ namespace Topshelf.Model
 {
 	using System;
 	using System.Collections.Generic;
+	using Common.Logging;
 	using Internal;
-	using log4net;
 	using Magnum.Extensions;
 	using Stact;
 	using Stact.Configuration;

@@ -15,7 +15,6 @@ namespace Topshelf.Specs
 	using System.Diagnostics;
 	using System.IO;
 	using System.Reflection;
-	using log4net.Config;
 	using NUnit.Framework;
 
 
@@ -25,13 +24,6 @@ namespace Topshelf.Specs
 		[SetUp]
 		public void Before_any()
 		{
-			Trace.WriteLine("Loading Log4net");
-
-			string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-			string file = Path.Combine(path, "test.log4net.xml");
-
-			XmlConfigurator.Configure(new FileInfo(file));
 		}
 	}
 }

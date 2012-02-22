@@ -17,7 +17,7 @@ namespace Topshelf.Windows
 	using System.Diagnostics;
 	using System.Reflection;
 	using System.Security.Principal;
-	using log4net;
+	using Common.Logging;
 	using Magnum.CommandLineParser;
 
 
@@ -58,7 +58,6 @@ namespace Topshelf.Windows
 
 				try
 				{
-					LogManager.Shutdown();
 
 					Process process = Process.Start(startInfo);
 					process.WaitForExit();

@@ -15,7 +15,7 @@ namespace StuffOnAShelf
 	using System;
 	using System.Configuration;
 	using System.Threading;
-	using log4net;
+	using Common.Logging;
 
 
 	public class TheClock

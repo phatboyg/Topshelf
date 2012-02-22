@@ -13,10 +13,9 @@
 namespace Topshelf
 {
 	using System;
+	using Common.Logging;
 	using HostConfigurators;
 	using Internal;
-	using log4net;
-
 
 	public static class HostFactory
 	{

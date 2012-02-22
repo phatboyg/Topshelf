@@ -14,9 +14,9 @@ namespace Topshelf.Builders
 {
 	using System;
 	using System.Linq;
+	using Common.Logging;
 	using Hosts;
 	using Internal;
-	using log4net;
 	using Messages;
 	using Model;
 	using Stact;

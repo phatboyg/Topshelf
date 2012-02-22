@@ -14,7 +14,6 @@ namespace Stuff
 {
     using System;
     using System.IO;
-    using log4net.Config;
     using Topshelf;
     using Topshelf.Configuration;
     using Topshelf.Configuration.Dsl;
@@ -23,7 +22,6 @@ namespace Stuff
     {
         static void Main(string[] args)
         {
-            XmlConfigurator.ConfigureAndWatch(new FileInfo(".\\log4net.config"));
 
             var h = HostFactory.New(x =>
                 {

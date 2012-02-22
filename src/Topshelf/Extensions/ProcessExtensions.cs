@@ -15,8 +15,8 @@ namespace Topshelf.Extensions
 	using System;
 	using System.Diagnostics;
 	using System.Runtime.InteropServices;
+	using Common.Logging;
 	using Internal;
-	using log4net;
 	using WindowsServiceCode;
 
 

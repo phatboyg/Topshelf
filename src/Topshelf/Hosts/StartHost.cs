@@ -12,7 +12,7 @@
 // specific language governing permissions and limitations under the License.
 namespace Topshelf.Hosts
 {
-	using log4net;
+    using Common.Logging;
 	using Windows;
 
 

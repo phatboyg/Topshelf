@@ -14,8 +14,8 @@ namespace Topshelf.Builders
 {
 	using System;
 	using System.Diagnostics;
+	using Common.Logging;
 	using Hosts;
-	using log4net;
 
 
 	public class HelpBuilder :

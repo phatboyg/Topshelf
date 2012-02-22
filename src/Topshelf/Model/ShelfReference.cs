@@ -17,8 +17,8 @@ namespace Topshelf.Model
 	using System.IO;
 	using System.Reflection;
 	using System.Runtime.Remoting;
+	using Common.Logging;
 	using Internal;
-	using log4net;
 	using Magnum.Extensions;
 	using Stact;
 

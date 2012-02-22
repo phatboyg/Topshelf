@@ -14,8 +14,6 @@ namespace StuffOnAShelf
 {
     using System;
     using System.IO;
-    using log4net;
-    using log4net.Config;
     using Topshelf.Configuration.Dsl;
     using Topshelf.Shelving;
 
@@ -27,13 +25,11 @@ namespace StuffOnAShelf
             cfg.HowToBuildService(n => new TheClock());
             cfg.WhenStarted(s =>
             {
-                XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clock.log4net.config")));
                 s.Start();
             });
             cfg.WhenStopped(s =>
             	{
             		s.Stop();
-					LogManager.Shutdown();
             	});
         }
     }

@@ -13,8 +13,8 @@
 namespace Topshelf.Model
 {
 	using System;
+	using Common.Logging;
 	using Exceptions;
-	using log4net;
 	using Magnum.Extensions;
 	using Messages;
 	using Stact;

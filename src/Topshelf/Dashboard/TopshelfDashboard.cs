@@ -13,7 +13,7 @@
 namespace Topshelf.Dashboard
 {
 	using System;
-	using log4net;
+	using Common.Logging;
 	using Model;
 	using Stact;
 	using Stact.ServerFramework;
