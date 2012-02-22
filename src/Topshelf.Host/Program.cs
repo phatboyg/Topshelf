@@ -13,19 +13,12 @@
 namespace Topshelf
 {
 	using System;
-	using System.IO;
-	using log4net;
-	using log4net.Config;
 
 	public class Program
 	{
-		static readonly ILog _log = LogManager.GetLogger(ShelfHost.DefaultServiceName);
-
 		[LoaderOptimization(LoaderOptimization.MultiDomainHost)]
 		static void Main()
 		{
-			BootstrapLogger();
-
 			HostFactory.Run(x =>
 				{
 					x.BeforeStartingServices(() => Console.WriteLine("[Topshelf] Preparing to start host services"));
@@ -50,26 +43,6 @@ namespace Topshelf
 
 					x.AfterStoppingServices(() => Console.WriteLine("[Topshelf] All services have been stopped"));
 				});
-
-			// shutdown log4net just before we exit!
-			LogManager.Shutdown();
-		}
-
-		static void BootstrapLogger()
-		{
-			string configurationFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config");
-
-			var configurationFile = new FileInfo(configurationFilePath);
-
-			// if we can't find the log4net configuration file, perform a basic configuration which at
-			// least logs to trace/debug, which means we can attach a debugger
-			// to the process!
-			if (configurationFile.Exists)
-				XmlConfigurator.ConfigureAndWatch(configurationFile);
-			else
-				BasicConfigurator.Configure();
-
-			_log.DebugFormat("Logging configuration loaded: {0}", configurationFilePath);
 		}
 	}
 }

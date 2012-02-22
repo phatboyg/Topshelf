@@ -17,8 +17,8 @@ namespace Topshelf.Builders
 	using System.Diagnostics;
 	using System.Linq;
 	using System.ServiceProcess;
+	using Common.Logging;
 	using Hosts;
-	using log4net;
 
 
 	public class InstallBuilder :

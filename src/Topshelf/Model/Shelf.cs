@@ -15,12 +15,10 @@ namespace Topshelf.Model
 	using System;
 	using System.Collections.Generic;
 	using System.Diagnostics;
-	using System.IO;
 	using System.Linq;
 	using Builders;
+	using Common.Logging;
 	using Configuration.Dsl;
-	using log4net;
-	using log4net.Config;
 	using Magnum.Extensions;
 	using Magnum.Reflection;
 	using Messages;
@@ -50,21 +48,13 @@ namespace Topshelf.Model
 			_controllerAddress = controllerAddress;
 			_controllerPipeName = controllerPipeName;
 
-			BootstrapLogger();
-
 			_serviceName = AppDomain.CurrentDomain.FriendlyName;
 
 			_log = LogManager.GetLogger("Topshelf.Shelf." + _serviceName);
 
 			AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
-			AppDomain.CurrentDomain.DomainUnload += OnDomainUnload;
 
 			Create();
-		}
-
-		void OnDomainUnload(object sender, EventArgs e)
-		{
-			LogManager.Shutdown();
 		}
 
 		public void Dispose()
@@ -90,8 +80,6 @@ namespace Topshelf.Model
 					_controllerChannel.Dispose();
 					_controllerChannel = null;
 				}
-
-				LogManager.Shutdown();
 			}
 
 			_disposed = true;
@@ -267,18 +255,6 @@ namespace Topshelf.Model
 			_log.InfoFormat("<{0}> {1}", message.ServiceName, message.EventType);
 		}
 
-		static void BootstrapLogger()
-		{
-			string assemblyPath = Path.GetDirectoryName(typeof(Shelf).Assembly.Location);
-
-			string configurationFilePath = Path.Combine(assemblyPath, "log4net.config");
-
-			var configurationFile = new FileInfo(configurationFilePath);
-
-			XmlConfigurator.ConfigureAndWatch(configurationFile);
-
-			LogManager.GetLogger("Topshelf.Host").DebugFormat("Logging configuration loaded for shelf: {0}",
-			                                                  configurationFilePath);
-		}
+	
 	}
 }

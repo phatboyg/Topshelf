@@ -14,9 +14,9 @@ namespace Topshelf.RecoveryConfigurators
 {
 	using System;
 	using Builders;
+	using Common.Logging;
 	using HostConfigurators;
 	using Internal;
-	using log4net;
 	using Windows;
 
 

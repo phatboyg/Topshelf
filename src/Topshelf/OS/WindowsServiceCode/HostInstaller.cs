@@ -14,7 +14,7 @@ namespace Topshelf.WindowsServiceCode
 {
 	using System.Collections;
 	using System.Configuration.Install;
-	using log4net;
+	using Common.Logging;
 	using Microsoft.Win32;
 
 

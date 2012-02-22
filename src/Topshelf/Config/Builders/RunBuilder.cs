@@ -15,10 +15,10 @@ namespace Topshelf.Builders
 	using System;
 	using System.Collections.Generic;
 	using System.Diagnostics;
+	using Common.Logging;
 	using Extensions;
 	using Hosts;
 	using Internal;
-	using log4net;
 	using Magnum.Extensions;
 	using Model;
 	using OS;

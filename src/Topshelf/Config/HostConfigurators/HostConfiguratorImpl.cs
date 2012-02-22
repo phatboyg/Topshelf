@@ -15,7 +15,7 @@ namespace Topshelf.HostConfigurators
 	using System;
 	using System.Collections.Generic;
 	using Builders;
-	using log4net;
+	using Common.Logging;
 	using Magnum.Extensions;
 
 

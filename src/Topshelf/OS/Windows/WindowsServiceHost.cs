@@ -16,9 +16,8 @@ namespace Topshelf.Windows
 	using System.IO;
 	using System.Reflection;
 	using System.ServiceProcess;
-	using Exceptions;
+	using Common.Logging;
 	using Internal;
-	using log4net;
 	using Model;
 
 
@@ -53,7 +52,7 @@ namespace Topshelf.Windows
 					string.Format("The {0} service has not been installed yet. Please run '{1} install'.",
 					              _description, Assembly.GetEntryAssembly().GetName());
 				_log.Fatal(message);
-				throw new ConfigurationException(message);
+				throw new Exceptions.ConfigurationException(message);
 			}
 
 			_log.Debug("[Topshelf] Starting up as a windows service application");

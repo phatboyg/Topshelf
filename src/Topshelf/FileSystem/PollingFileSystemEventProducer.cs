@@ -17,8 +17,8 @@ namespace Topshelf.FileSystem
 	using System.IO;
 	using System.Linq;
 	using System.Security.Cryptography;
+	using Common.Logging;
 	using Internal;
-	using log4net;
 	using Magnum.Extensions;
 	using Magnum.FileSystem.Events;
 	using Magnum.FileSystem.Internal;

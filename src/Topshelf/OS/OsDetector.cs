@@ -4,7 +4,7 @@ namespace Topshelf.OS
     using System.IO;
     using System.Linq;
     using System.ServiceProcess;
-    using log4net;
+    using Common.Logging;
 
 
     public static class OsDetector

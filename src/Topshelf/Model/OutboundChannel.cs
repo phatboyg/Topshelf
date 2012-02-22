@@ -13,7 +13,7 @@
 namespace Topshelf.Model
 {
 	using System;
-	using log4net;
+	using Common.Logging;
 	using Stact;
 	using Stact.Configuration;
 

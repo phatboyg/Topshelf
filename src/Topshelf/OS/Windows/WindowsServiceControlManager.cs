@@ -20,9 +20,8 @@ namespace Topshelf.Windows
 	using System.Security.Permissions;
 	using System.ServiceProcess;
 	using System.Threading;
+	using Common.Logging;
 	using Internal;
-	using log4net;
-	using Magnum.Extensions;
 
 
 	/// <summary>

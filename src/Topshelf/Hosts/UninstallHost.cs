@@ -16,8 +16,8 @@ namespace Topshelf.Hosts
 	using System.Collections.Generic;
 	using System.Configuration.Install;
 	using System.ServiceProcess;
+	using Common.Logging;
 	using Internal;
-	using log4net;
 	using Windows;
 
 

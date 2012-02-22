@@ -18,8 +18,8 @@ namespace Topshelf.Hosts
 	using System.Runtime.CompilerServices;
 	using System.ServiceProcess;
 	using System.Threading;
+	using Common.Logging;
 	using Internal;
-	using log4net;
 	using Model;
 	using OS;
 

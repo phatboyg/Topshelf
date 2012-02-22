@@ -17,8 +17,8 @@ namespace Topshelf.Model
 	using System.Linq;
 	using System.Reflection;
 	using System.Threading;
+	using Common.Logging;
 	using Exceptions;
-	using log4net;
 	using Magnum;
 	using Magnum.Collections;
 	using Magnum.Extensions;
