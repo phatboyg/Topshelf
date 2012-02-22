@@ -15,7 +15,7 @@ namespace Topshelf.Specs
 	using System;
 	using System.IO;
 	using System.Threading;
-	using log4net;
+	using Common.Logging;
 	using Magnum.Extensions;
 	using Magnum.TestFramework;
 	using Messages;
