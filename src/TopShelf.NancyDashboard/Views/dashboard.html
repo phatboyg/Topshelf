@@ -5,8 +5,35 @@
 		<title>@Model.Title Topshelf Dashboard</title>
         <link rel="stylesheet" href="styles/screen.css" type="text/css" media="screen, projection">
         <link rel="stylesheet" href="styles/print.css" type="text/css" media="print">	
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="scripts/jquery.fileupload.js" type="text/javascript"></script>
 
         <!--[if lt IE 8]><link rel="stylesheet" href="styles/ie.css" type="text/css" media="screen, projection"><![endif]-->
+        <style>
+        .package-frame {
+            clear: right;
+            width: 80px;
+            height: 80px;
+            border: 1px solid #DDD;
+            overflow: auto;
+            position: relative;
+        }
+        </style>
+        <script type="text/javascript">
+            $(function () {
+                $('#packageUploadLocal').fileupload({
+                    dataType: 'application',
+                    url: 'service/upload',
+                    dropZone: $("#dropLocal"),
+                    done: function (e, data) {
+                        $.each(data.result, function (index, file) {
+                            $('<p/>').text(file.name).appendTo(document.body);
+                        });
+                    }
+                });
+            });
+        </script>
 	</head>
 	<body>
         <div class="container">
@@ -33,6 +60,15 @@
                     @EndEach;
                 </tbody>
             </table>
+            @If.IsPackageUploadsEnabled
+            <div>
+                <hr />
+                <h2>Upload Package</h2>
+                <input id="packageUploadLocal" type="file" name="files[]" multiple /><br />
+                <label>Or drop the package here ...</label>
+                <div id="dropLocal" class="package-frame" />
+            </div>
+            @EndIf
         </div>
 	</body>
 </html>

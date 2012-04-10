@@ -32,21 +32,16 @@
     <DocumentationFile>bin\Release\Topshelf.NancyDashboard.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Magnum">
-      <HintPath>..\..\lib\Magnum\net-4.0\Magnum.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Stact">
-      <HintPath>..\..\lib\Stact\net-4.0\Stact.dll</HintPath>
+    <Reference Include="Nancy">
+      <HintPath>..\packages\Nancy.0.10.0\lib\net40\Nancy.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="Topshelf" Condition="'$(TargetFrameworkVersion)' == 'v3.5'">
       <HintPath>..\..\build_output\net35\Topshelf.dll</HintPath>
     </Reference>
     <Reference Include="Topshelf" Condition="'$(TargetFrameworkVersion)' == 'v4.0'">
       <HintPath>..\..\build_output\net40\Topshelf.dll</HintPath>
-    </Reference>
-    <Reference Include="Nancy">
-      <HintPath>..\packages\Nancy.0.10.0\lib\net40\Nancy.dll</HintPath>
     </Reference>
     <Reference Include="Nancy.Hosting.Self">
       <HintPath>..\packages\Nancy.Hosting.Self.0.10.0\lib\net40\Nancy.Hosting.Self.dll</HintPath>
@@ -56,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DashboardConfiguration.cs" />
     <Compile Include="DashboardExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TopshelfDashboard.cs" />
@@ -77,9 +73,18 @@
     <Content Include="images\control_unload.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="styles\ie.css" />
-    <Content Include="styles\print.css" />
-    <Content Include="styles\screen.css" />
+    <Content Include="scripts\jquery.fileupload.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="styles\ie.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="styles\print.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="styles\screen.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\dashboard.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
