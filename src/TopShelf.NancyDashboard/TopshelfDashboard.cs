@@ -31,12 +31,11 @@ namespace Topshelf.NancyDashboard
                     ServicesLocation = "Services",
                     PackageStore = "Packages"
                 };
+            TinyIoC.TinyIoCContainer.Current.Register(configuration);
 
             if (StartHttpListener(configuration))
             {
                 ConfigurePackageUploads(configuration);
-
-                TinyIoC.TinyIoCContainer.Current.Register(configuration);
             }
         }
 

@@ -5,7 +5,6 @@ namespace Topshelf.NancyDashboard
     using System.Dynamic;
     using System.IO;
     using System.Linq;
-    using System.Threading;
     using Ionic.Zip;
     using Logging;
     using Messages;
@@ -13,12 +12,19 @@ namespace Topshelf.NancyDashboard
     using Nancy;
     using Stact;
     using Stact.MessageHeaders;
+    using Magnum.Extensions;
 
+    /// <summary>
+    /// Main module to handle the incoming HTTP requests to the dashboard
+    /// </summary>
     public class TopshelfWebServicesModule : NancyModule
     {
         readonly ILog _log = Logger.Get("Topshelf.WebControl.TopShelfControlModule");
         public dynamic Model = new ExpandoObject();
 
+        /// <summary>
+        /// Registration of all the HTTP handlers
+        /// </summary>
         public TopshelfWebServicesModule()
         {
             var serviceCoordinator = TinyIoC.TinyIoCContainer.Current.Resolve<IServiceChannel>();
@@ -68,11 +74,20 @@ namespace Topshelf.NancyDashboard
 
             Post["/service/upload"] = parms =>
             {
+                var configuration = TinyIoC.TinyIoCContainer.Current.Resolve<DashboardConfiguration>();
+
+                if (! configuration.EnablePackageUploads)
+                {
+                    _log.Info("Blocked incoming request for package upload");
+                    return HttpStatusCode.Unauthorized;
+                }
+
                 var uploadedFile = this.Request.Files.FirstOrDefault();
 
                 if (uploadedFile != null)
                 {
-                    var configuration = TinyIoC.TinyIoCContainer.Current.Resolve<DashboardConfiguration>();
+                    _log.Info("Received file upload: " + uploadedFile.Name);
+
                     if (!Directory.Exists(configuration.PackageStore))
                     {
                         try
@@ -107,11 +122,9 @@ namespace Topshelf.NancyDashboard
             Get["/scripts/{file}"] = @params => Response.AsJs("." + Request.Path);
         }
 
-        private IEnumerable<dynamic> GetServices(IServiceChannel serviceCoordinator)
+        private static IEnumerable<dynamic> GetServices(IServiceChannel serviceCoordinator)
         {
-            var handle = new AutoResetEvent(false);
-
-            IEnumerable<dynamic> report = null;
+            var result = new Future<IEnumerable<dynamic>>();
 
             AnonymousActor.New(inbox =>
             {
@@ -119,7 +132,7 @@ namespace Topshelf.NancyDashboard
 
                 inbox.Receive<Response<ServiceStatus>>(response =>
                 {
-                    report = from service in response.Body.Services
+                    var report = from service in response.Body.Services
                              select new
                                  {
                                      Name = Uri.EscapeUriString(service.Name),
@@ -128,19 +141,19 @@ namespace Topshelf.NancyDashboard
                                      Action = (service.CurrentState == "Running") ? "stop" : "start"
                                  };
 
-                    handle.Set();
+                    result.Complete(report);
 
-                }, TimeSpan.FromSeconds(10), () =>
+                }, 10.Seconds(), () =>
                 {
-                    report = new[] { new { Name = "Failed to get Services list" } };
+                    var report = new[] { new { Name = "Failed to get Services list" } };
 
-                    handle.Set();
+                    result.Complete(report);
                 });
             });
 
-            handle.WaitOne();
+            result.WaitUntilCompleted(20.Seconds());
 
-            return report;
+            return result.Value;
         }
 
         private bool UnpackPackage(string sourcePath, string targetpath)
