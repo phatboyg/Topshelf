@@ -20,3 +20,5 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: InternalsVisibleTo("Topshelf.Dashboard")]
+[assembly: InternalsVisibleTo("Topshelf.NancyDashboard")]
+[assembly: InternalsVisibleTo("Topshelf.AzureHost")]

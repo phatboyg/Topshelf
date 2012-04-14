@@ -102,6 +102,12 @@ task :compile => [:global_version, :build] do
 	puts 'Copying unmerged dependencies to output folder'
 	copyOutputFiles File.join(props[:src], "Topshelf.Dashboard/bin/#{BUILD_CONFIG}"), "Topshelf.Dashboard.{dll,pdb,xml,config}", props[:output]
 	copyOutputFiles File.join(props[:src], "Topshelf.Dashboard/bin/#{BUILD_CONFIG}"), "Spark.{dll,pdb}", props[:output]
+	copyOutputFiles File.join(props[:src], "Topshelf.NancyDashboard/bin/#{BUILD_CONFIG}"), "Topshelf.NancyDashboard.{pdb,xml,config}", props[:output]
+	copyOutputFiles File.join(props[:src], "Topshelf.NancyDashboard/bin/#{BUILD_CONFIG}"), "*.dll", props[:output]
+	copyOutputFiles File.join(props[:src], "Topshelf.NancyDashboard/bin/#{BUILD_CONFIG}/images"), "*", File.join(props[:output], "images")
+	copyOutputFiles File.join(props[:src], "Topshelf.NancyDashboard/bin/#{BUILD_CONFIG}/styles"), "*", File.join(props[:output], "styles")
+	copyOutputFiles File.join(props[:src], "Topshelf.NancyDashboard/bin/#{BUILD_CONFIG}/scripts"), "*", File.join(props[:output], "scripts")
+	copyOutputFiles File.join(props[:src], "Topshelf.NancyDashboard/bin/#{BUILD_CONFIG}/Views"), "*", File.join(props[:output], "Views")
 	copyOutputFiles File.join(props[:src], "Topshelf.Host/bin/#{BUILD_CONFIG}"), "log4net.{dll,pdb,xml,config}", props[:output]
 	copyOutputFiles File.join(props[:src], "Topshelf.Host/bin/#{BUILD_CONFIG}"), "Topshelf.Host.{exe,pdb}", props[:output]
 	copyOutputFiles File.join(props[:src], "Loggers/Topshelf.Log4NetIntegration/bin/#{BUILD_CONFIG}"), "Topshelf.Log4NetIntegration.{dll,xml,pdb}", props[:output]
@@ -237,6 +243,7 @@ desc "Builds the nuget package"
 task :nuget do
 	sh "lib/nuget pack topshelf.nuspec /OutputDirectory build_artifacts"
 	sh "lib/nuget pack topshelf.dashboard.nuspec /OutputDirectory build_artifacts"
+	sh "lib/nuget pack topshelf.nancydashboard.nuspec /OutputDirectory build_artifacts"
 	sh "lib/nuget pack topshelf.log4net.nuspec /OutputDirectory build_artifacts"
 	sh "lib/nuget pack topshelf.nlog.nuspec /OutputDirectory build_artifacts"
 end

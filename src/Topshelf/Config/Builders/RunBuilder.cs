@@ -86,7 +86,7 @@ namespace Topshelf.Builders
 				callback(this as T);
 		}
 
-		Host CreateHost(IServiceCoordinator coordinator, Os osCommands)
+		public virtual Host CreateHost(IServiceCoordinator coordinator, Os osCommands)
 		{
 			var process = Process.GetCurrentProcess().GetParent();
 			if (process != null && process.ProcessName == "services")

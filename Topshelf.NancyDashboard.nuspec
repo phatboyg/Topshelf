@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <version>2.3.0.0</version>
+    <authors>Igor Moochnick</authors>
+    <owners>Igor Moochnick</owners>
+    <licenseUrl>https://github.com/Topshelf/Topshelf/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Topshelf/Topshelf</projectUrl>
+    <iconUrl>http://topshelf-project.com/wp-content/themes/pandora/img/slide.1.png</iconUrl>
+    <dependencies>
+      <dependency id="log4net" version="1.2.11" />
+      <dependency id="Topshelf" version="2.3.0.0" />
+      <dependency id="Nancy" version="0.10.0" />
+      <dependency id="Nancy.Hosting.Self" version="0.10.0" />
+    </dependencies>
+    <id>Topshelf.NancyDashboard</id>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Topshelf is a service library and hosting framework for .NET</description>
+    <language>en-US</language>
+  </metadata>
+  <files>
+    <file src="src\TopShelf.NancyDashboard\scripts\jquery.fileupload.js" target="content\scripts\jquery.fileupload.js" />
+    <file src="src\TopShelf.NancyDashboard\styles\ie.css" target="content\styles\ie.css" />
+    <file src="src\TopShelf.NancyDashboard\styles\print.css" target="content\styles\print.css" />
+    <file src="src\TopShelf.NancyDashboard\styles\screen.css" target="content\styles\screen.css" />
+    <file src="src\TopShelf.NancyDashboard\Views\dashboard.html" target="content\views\dashboard.html" />
+    <file src="build_output\NET40\Topshelf.NancyDashboard.dll" target="lib\NET40\Topshelf.NancyDashboard.dll" />
+    <file src="build_output\NET40\Topshelf.NancyDashboard.pdb" target="lib\NET40\Topshelf.NancyDashboard.pdb" />
+    <file src="build_output\NET40\Topshelf.NancyDashboard.xml" target="lib\NET40\Topshelf.NancyDashboard.xml" />
+  </files>
+</package>
