@@ -21,3 +21,4 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("Topshelf.Dashboard")]
 [assembly: InternalsVisibleTo("Topshelf.NancyDashboard")]
+[assembly: InternalsVisibleTo("Topshelf.AzureHost")]
