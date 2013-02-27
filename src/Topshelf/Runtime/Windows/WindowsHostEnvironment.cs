@@ -49,14 +49,19 @@ namespace Topshelf.Runtime.Windows
                 {
                     _log.InfoFormat("The {0} service is already starting.", serviceName);
                     return;
+                }         
+
+                if (sc.Status == ServiceControllerStatus.Stopped)
+                {
+                    sc.Start();
+                    sc.WaitForStatus(ServiceControllerStatus.Running, TimeSpan.FromSeconds(10));
+                }
+                else
+                {
+                    _log.ErrorFormat("The {0} service can't be started. Unexpected service status {1}", serviceName, sc.Status.ToString());
+
                 }
 
-                sc.Start();
-                while (sc.Status == ServiceControllerStatus.Stopped || sc.Status == ServiceControllerStatus.StartPending)
-                {
-                    Thread.Sleep(500);
-                    sc.Refresh();
-                }
             }
         }
 
@@ -74,13 +79,15 @@ namespace Topshelf.Runtime.Windows
                 {
                     _log.InfoFormat("The {0} service is already stopping.", serviceName);
                     return;
-                }
-
-                sc.Stop();
-                while (sc.Status == ServiceControllerStatus.Running || sc.Status == ServiceControllerStatus.StopPending)
+                }               
+                if (sc.Status == ServiceControllerStatus.Running)
                 {
-                    Thread.Sleep(500);
-                    sc.Refresh();
+                    sc.Stop();
+                    sc.WaitForStatus(ServiceControllerStatus.Stopped, TimeSpan.FromSeconds(10));
+                }
+                else
+                {
+                    _log.ErrorFormat("The {0} service can't be stoped. Unexpected service status {1}", serviceName, sc.Status.ToString());
                 }
             }
         }
@@ -132,6 +139,8 @@ namespace Topshelf.Runtime.Windows
         {
             if (Environment.OSVersion.Version.Major == 6)
             {
+
+                _log.Debug("Restart as Adminstrator in new process.");
                 string commandLine = CommandLine.Replace("--sudo", "");
 
                 var startInfo = new ProcessStartInfo(Assembly.GetEntryAssembly().Location, commandLine)
