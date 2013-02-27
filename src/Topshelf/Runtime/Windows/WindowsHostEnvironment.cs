@@ -49,7 +49,7 @@ namespace Topshelf.Runtime.Windows
                 {
                     _log.InfoFormat("The {0} service is already starting.", serviceName);
                     return;
-                }
+                }         
 
                 if (sc.Status == ServiceControllerStatus.Stopped)
                 {
@@ -59,6 +59,7 @@ namespace Topshelf.Runtime.Windows
                 else
                 {
                     _log.ErrorFormat("The {0} service can't be started. Unexpected service status {1}", serviceName, sc.Status.ToString());
+
                 }
 
             }
@@ -78,8 +79,7 @@ namespace Topshelf.Runtime.Windows
                 {
                     _log.InfoFormat("The {0} service is already stopping.", serviceName);
                     return;
-                }
-
+                }               
                 if (sc.Status == ServiceControllerStatus.Running)
                 {
                     sc.Stop();
